@@ -21,6 +21,7 @@ const UserRouter = (express) =>{
     router.route("/addOrder").post(single,controller.AddOrder)
     router.route("/getVenders").get(controller.getVenders)
     router.route("/orders").get(controller.getOrders)
+    router.route("/order_id/:id").get(controller.GetOrderById)
 
     return router
 

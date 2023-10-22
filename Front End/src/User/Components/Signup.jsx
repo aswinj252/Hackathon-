@@ -1,10 +1,14 @@
 import { useFormik } from "formik"
 import { signupSchema } from "../Schemas/Index";
 import axios from "../Utils/axios";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Signup() {
+  const navigate = useNavigate()
 
   const initialValues ={
     email:"",
@@ -19,6 +23,34 @@ useFormik({
     console.log(values,"values");
 axios.post('/signup',values,{ headers: { "Content-Type": "application/json" }}).then((response)=>{
   console.log(response);
+  if (response.data.response.status === true) {
+
+    toast.success(response.data.response.message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+      navigate("/user/login")
+
+  }
+  else {
+    toast.warn(response.data.response.message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      })
+  }
+
 })
   }
 })

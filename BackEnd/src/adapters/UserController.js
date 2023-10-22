@@ -4,6 +4,7 @@ import venderAdd from "../application/use_case/User/VenderAdd.js";
 import GetVenders from "../application/use_case/User/GetVenders.js";
 import addOrder from "../application/use_case/User/AddOrder.js";
 import GetOrders from "../application/use_case/User/GetOrders.js";
+import GetOrderByid from "../application/use_case/User/GetOrderByid.js";
 
 const UserController = (
   UserRepositoryInt,
@@ -96,8 +97,19 @@ const getOrders =async (req,res) =>{
   }
 
 }
+const GetOrderById = async( req,res) =>{
+  try {
+    const id = req.params.id
+    console.log(id);
+  const response = await GetOrderByid(id,DBRrepository)
+  res.json({response})
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
 
 
-  return { CreateUser, Login,AddVender,AddOrder,getVenders ,getOrders};
+  return { CreateUser, Login,AddVender,AddOrder,getVenders ,getOrders,GetOrderById};
 };
 export default UserController;

@@ -29,8 +29,9 @@ import User from "../Models/User.js"
     }
 
     const Getorders = () => Order.find()
+    const getById = (id) => Order.findOne({_id:id})
 
-    return {userExist,Create,CreateOrder,Getorders}
+    return {userExist,Create,CreateOrder,Getorders,getById}
 
  }
  export default UserRepositoryImp

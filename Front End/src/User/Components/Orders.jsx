@@ -2,6 +2,7 @@
  import { useEffect } from "react"
  import axios from "../Utils/axios"
 import { useState } from "react"
+import { Link } from 'react-router-dom';
 function Orders() {
 
 
@@ -80,7 +81,8 @@ const GetOrders = () =>{
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <button>View</button>
+            <Link to={`/user/home/details/${obj._id}`}>  View
+          </Link>
             </td>
           </tr>
           

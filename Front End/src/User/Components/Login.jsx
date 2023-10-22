@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom"
 import { useFormik } from "formik"
 import { loginSchema } from "../Schemas/Index"
-
+import axios from "../Utils/axios"
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 function Login() {
 
+  const navigate = useNavigate()
   const initialValues ={
     email:"",
     password:""
@@ -14,7 +18,54 @@ useFormik({
   validationSchema:loginSchema,
   onSubmit:(values) =>{
     console.log(values,"values");
+    axios.post('/login',values,{ headers: { "Content-Type": "application/json" },withCredentials: true }).then((response) =>{
+      console.log(response);
+      if(response.data.response.login &&response.data.response.status  === true)
+      {
+        console.log("Login success");
 
+        toast.success(response.data.response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        
+          navigate("/user/home")
+      }
+      else if( response.data.response.login === false && response.data.response.status ===true)
+{
+  console.log("incorrect password");
+  toast.warn(response.data.response.message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    })
+}
+else{
+  console.log("email not registeres");
+  toast.error(response.data.response.message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+}
+
+    })
   }
 })
 console.log(errors);
@@ -175,12 +226,8 @@ console.log(errors);
             {/* Register link */}
             <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
               Don't have an account?
-              <a
-                href="#!"
-                className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
-              >
-                Register
-              </a>
+             <Link to={"/user/signup"}  className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+>Register</Link>
             </p>
           </div>
         </form>

@@ -7,7 +7,7 @@ const UserLogin = async (email, password, dbRepository, authRepository) => {
       UserExist.password
     );
     if (Password) {
-      return { Password, message:"login Successfull",login: true, status: true };
+      return {  message:"login Successfull",login: true, status: true };
     }
     else{
         return{message:"wrong password",login:false, status: true}

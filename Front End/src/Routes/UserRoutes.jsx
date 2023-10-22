@@ -5,6 +5,7 @@ import Home from "../User/Components/Home"
 import HomePage from "../User/Pages/HomePage"
 import Orders from "../User/Components/Orders"
 import AddVender from "../User/Components/AddVender"
+import SingleOrder from "../User/Components/SingleOrder"
 
 function UserRoutes() {
   return (
@@ -16,6 +17,7 @@ function UserRoutes() {
           <Route index element={<Home/>}/>
           <Route path="/home/orders"  element={<Orders/>} />
           <Route path = "/home/addVenders" element={<AddVender/>}/>
+          <Route path = "details/:id" element={<SingleOrder/>}/>
 
         </Route>
        
