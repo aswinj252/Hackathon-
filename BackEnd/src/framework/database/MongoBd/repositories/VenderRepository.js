@@ -17,7 +17,8 @@ const getDetails = (email) => Vender.findOne({email:email})
 const Activate = (email) => Vender.updateOne({email:email},{$set:{activated:true}})
 const getData = (id) => Vender.findOne({_id:id})
 const passwordchange = (email,password) => Vender.updateOne({email:email},{$set:{password:password}})
-return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange}
+const getVenders = () => Vender.find().select("email")
+return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange,getVenders}
     
 }
 export default venderRepositoryImp

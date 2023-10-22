@@ -3,6 +3,7 @@ import venderRepositoryImp from "../../database/MongoBd/repositories/VenderRepos
 import venderController from "../../../adapters/VenderController.js";
 import authServiceImp from "../../Services/authServiceImp.js";
 import authServiceInt from "../../../application/Service/authServiceInt.js";
+import single from "../../Middlewares/multer.js";
 
 const VenderRouter = (express) =>{
     const router = express.Router();
@@ -12,6 +13,8 @@ const VenderRouter = (express) =>{
     router.route("/getData/:id").get(controller.getData)
     router.route("/add_password").post(controller.AddPassword)
     router.route("/login").post(controller.Login)
+    router.route("/addOrder").post(single,controller.AddOrder)
+   
 
 
     return router

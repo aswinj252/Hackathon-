@@ -11,6 +11,10 @@ export default {
     EmailPassword:process.env.EmailPassword,
     Email:process.env.Email,
     accessKey:process.env.Accesskey,
+    accessKeyy:process.env.Accesskey,
+    region:process.env.BUCKET_REGION,
+    Bucketname:process.env.BUCKET_NAME,
+    secret:process.env.Secretaccesskey,
 
 
 }

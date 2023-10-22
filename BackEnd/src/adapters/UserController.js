@@ -1,6 +1,9 @@
 import register from "../application/use_case/User/Register.js";
 import UserLogin from "../application/use_case/User/UserLogin.js";
 import venderAdd from "../application/use_case/User/VenderAdd.js";
+import GetVenders from "../application/use_case/User/GetVenders.js";
+import addOrder from "../application/use_case/User/AddOrder.js";
+import GetOrders from "../application/use_case/User/GetOrders.js";
 
 const UserController = (
   UserRepositoryInt,
@@ -18,6 +21,7 @@ const UserController = (
   const authserviceRepository = authServiceInt(authServiceImp());
   const mailSeviceRepository = mailServiceInt(mailServiceImp());
   const venderDb = venderRepositoryInt(venderRepositoryImp());
+  
 
   const CreateUser = async (req, res) => {
     try {
@@ -58,7 +62,42 @@ const UserController = (
     }
 
   }
+  const AddOrder = async(req,res) =>{
+   try {
+     const {productName,quantity,date,vender} = req.body
+    const document = req.file
+     const response = await addOrder(productName,quantity,date,vender,document,DBRrepository)
+     console.log(response);
+     res.json({response})
+   } catch (error) {
+    console.log(error);
+    
+   }
+   
+    
+}
 
-  return { CreateUser, Login,AddVender };
+const getVenders = async(req,res)=>{
+  try {
+      const response = await GetVenders(venderDb)
+      res.json({response})
+
+  } catch (error) {
+      
+  }
+}
+const getOrders =async (req,res) =>{
+  try {
+    
+    const response = await GetOrders(DBRrepository)
+    res.json({response})
+  } catch (error) {
+    
+  }
+
+}
+
+
+  return { CreateUser, Login,AddVender,AddOrder,getVenders ,getOrders};
 };
 export default UserController;

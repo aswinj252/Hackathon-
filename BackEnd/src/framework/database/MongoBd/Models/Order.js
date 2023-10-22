@@ -1,26 +1,14 @@
 import mongoose from "mongoose";
 
-const shippingScheduleSchema = new mongoose.Schema({
-  schedule_number: {type:Number,
-    required:true
-},
-  proposed_date: {
-    type:Date,
-  required:true
-}
-});
 
 const orderSchema = new mongoose.Schema({
-  user_id: {
-    type: String,
-    required: true,
-  },
+
   product_name: {
     type: String,
     required: true,
   },
   quantity: {
-    type: Number,
+    type: String,
      required: true 
     },
 
@@ -28,11 +16,19 @@ const orderSchema = new mongoose.Schema({
      type: String, 
      required: true 
     },
-  shipping_schedule: [shippingScheduleSchema],
+
+    vender:{
+        type:String,
+        required:true
+    },
 
   pdf_document: { 
     type: String, required: true
  },
+ viewed:{
+    type:String,
+    required:true
+ }
 });
 
 const Order = mongoose.model("Order", orderSchema);

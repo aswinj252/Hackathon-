@@ -14,8 +14,8 @@ function UserRoutes() {
         <Route path="signup" element={<Signup/>}/>
         <Route path="home" element={<HomePage/>}>
           <Route index element={<Home/>}/>
-          <Route path="orders"  element={<Orders/>} />
-          <Route path = "addVenders" element={<AddVender/>}/>
+          <Route path="/home/orders"  element={<Orders/>} />
+          <Route path = "/home/addVenders" element={<AddVender/>}/>
 
         </Route>
        

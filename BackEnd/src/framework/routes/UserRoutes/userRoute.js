@@ -9,6 +9,7 @@ import mailServiceImp from "../../Services/mailServiceImp.js"
 import UserRepositoryImp from "../../database/MongoBd/repositories/UserRepositoryImp.js"
 import venderRepositoryInt from "../../../application/repository/VenderRepositoryInt.js"
 import venderRepositoryImp from "../../database/MongoBd/repositories/VenderRepository.js"
+import single from "../../Middlewares/multer.js";
 const UserRouter = (express) =>{
 
     const router = express.Router()
@@ -17,6 +18,9 @@ const UserRouter = (express) =>{
     router.route("/signup").post(controller.CreateUser)
     router.route("/login").post(controller.Login)
     router.route("/add_vender").post(controller.AddVender)
+    router.route("/addOrder").post(single,controller.AddOrder)
+    router.route("/getVenders").get(controller.getVenders)
+    router.route("/orders").get(controller.getOrders)
 
     return router
 

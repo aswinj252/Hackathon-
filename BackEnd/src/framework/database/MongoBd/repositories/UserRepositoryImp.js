@@ -1,3 +1,4 @@
+import Order from "../Models/Order.js"
 import User from "../Models/User.js"
 
  const UserRepositoryImp = () =>{
@@ -12,7 +13,24 @@ import User from "../Models/User.js"
 
     }
 
-    return {userExist,Create}
+    const CreateOrder = (details) =>{
+        const create = new Order({
+            product_name:details.getProductName(),
+            quantity:details.getQuantity(),
+            date_of_shipping:details.getDateOfShipping(),
+            quantity:details.getQuantity(),
+            vender:details.getVender(),
+            pdf_document:details.getPdfDocument(),
+            viewed:false
+
+
+        })
+        return create.save();
+    }
+
+    const Getorders = () => Order.find()
+
+    return {userExist,Create,CreateOrder,Getorders}
 
  }
  export default UserRepositoryImp

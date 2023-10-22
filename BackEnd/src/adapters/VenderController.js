@@ -260,8 +260,14 @@ const authRepository = authServiceInt(authServiceImp());
       res.json({response})
       
         } 
+        const AddOrder = async(req,res) =>{
+            console.log(req.body);
+            console.log(req.files);
+        }
 
-return {verify,AddPassword,getData,Login}
+   
+
+return {verify,AddPassword,getData,Login,AddOrder,}
 
 }
 
