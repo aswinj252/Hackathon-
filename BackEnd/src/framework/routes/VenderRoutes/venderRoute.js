@@ -14,6 +14,8 @@ const VenderRouter = (express) =>{
     router.route("/add_password").post(controller.AddPassword)
     router.route("/login").post(controller.Login)
     router.route("/addOrder").post(single,controller.AddOrder)
+    router.route("/orders").get(controller.getOrders)
+    router.route("/order_id/:id").get(controller.GetOrderById)
    
 
 

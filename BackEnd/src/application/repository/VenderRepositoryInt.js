@@ -5,9 +5,10 @@ const getDetails = (email) => repository.getDetails(email)
 const Activate = (email) => repository.Activate(email)
 const getData = (id) => repository.getData(id)
 const passwordchange = (email,password) => repository.passwordchange(email,password)
-const getVenders = () =>repository.getVenders()
+const Getorders = () =>repository.Getorders()
+const getById = (id) => repository.getById(id)
 
-return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange,getVenders}
+return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange,Getorders,getById}
 }
 
 export default venderRepositoryInt

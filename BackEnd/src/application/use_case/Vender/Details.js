@@ -1,11 +1,11 @@
-const Getdetails = async (id,repository) =>{
+const Getdetails = async (repository) =>{
 
-const data = await repository.getData(id)
+const data = await repository.getData()
 console.log(data);
-if (data !=null &&data.activated===true) {
+
     
     return(data.email)
-}
+
 
 
 }

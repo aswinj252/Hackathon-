@@ -3,6 +3,8 @@ import GetDetails from "../application/use_case/Vender/GetDetails.js";
 import Getdetails from "../application/use_case/Vender/Details.js";
 import changePassword from "../application/use_case/Vender/changePassword.js";
 import login from "../application/use_case/Vender/Login.js";
+import GetOrders from "../application/use_case/Vender/GetOrders.js";
+import GetOrderByid from "../application/use_case/Vender/GetOrderbyId.js";
 
 const venderController = (venderRepositoryInt,venderRepositoryImp,authServiceInt,authServiceImp ) =>{
 const VenderRepository = venderRepositoryInt(venderRepositoryImp());
@@ -241,7 +243,7 @@ const authRepository = authServiceInt(authServiceImp());
             try {
                 const id = req.params.id
 
-                const response =await Getdetails(id,VenderRepository)
+                const response =await Getdetails(VenderRepository)
                 console.log(response);
                 res.json({response})
                 
@@ -264,10 +266,31 @@ const authRepository = authServiceInt(authServiceImp());
             console.log(req.body);
             console.log(req.files);
         }
+        const getOrders =async (req,res) =>{
+            try {
+              
+              const response = await GetOrders(VenderRepository)
+              res.json({response})
+            } catch (error) {
+              
+            }
+          
+          }
+          const GetOrderById = async( req,res) =>{
+            try {
+              const id = req.params.id
+              console.log(id);
+            const response = await GetOrderByid(id,VenderRepository)
+            res.json({response})
+            } catch (error) {
+              console.log(error);
+            }
+            
+          }
 
    
 
-return {verify,AddPassword,getData,Login,AddOrder,}
+return {verify,AddPassword,getData,Login,AddOrder,getOrders,GetOrderById}
 
 }
 
