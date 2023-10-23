@@ -51,6 +51,8 @@ const GetOrders = () =>{
             <th className="px-5 py-3">Date</th>
             <th className="px-5 py-3">Vender</th>
             <th className="px-5 py-3">Status</th>
+            <th className="px-5 py-3">Details</th>
+            <th className="px-5 py-3">Scheduled</th>
           </tr>
         </thead>
 
@@ -83,6 +85,11 @@ const GetOrders = () =>{
             <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
             <Link to={`/user/home/details/${obj._id}`}>  View
           </Link>
+            </td>
+            <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+            <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
+              {obj.scheduled}
+              </span>
             </td>
           </tr>
           

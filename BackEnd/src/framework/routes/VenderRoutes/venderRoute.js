@@ -16,7 +16,9 @@ const VenderRouter = (express) =>{
     router.route("/addOrder").post(single,controller.AddOrder)
     router.route("/orders").get(controller.getOrders)
     router.route("/order_id/:id").get(controller.GetOrderById)
-   
+    router.route("/schedule") .post(controller.Schedule)
+
+   router.route("/dates/:id").get(controller.GetDates)
 
 
     return router

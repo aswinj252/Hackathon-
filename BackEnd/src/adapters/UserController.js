@@ -81,6 +81,7 @@ const UserController = (
 const getVenders = async(req,res)=>{
   try {
       const response = await GetVenders(venderDb)
+      console.log(response);
       res.json({response})
 
   } catch (error) {

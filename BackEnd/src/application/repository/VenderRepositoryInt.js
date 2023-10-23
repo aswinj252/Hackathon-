@@ -7,8 +7,12 @@ const getData = (id) => repository.getData(id)
 const passwordchange = (email,password) => repository.passwordchange(email,password)
 const Getorders = () =>repository.Getorders()
 const getById = (id) => repository.getById(id)
+const getVenders = ( ) => repository.getVenders()
+const create = ( details,id) => repository.create(details,id)
+const status = (id) => repository.status(id)
+const GetDates = (id) => repository.GetDates(id)
 
-return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange,Getorders,getById}
+return {VenderExist,AdVender,getDetails,Activate,getData,passwordchange,Getorders,getById,getVenders,create,status,GetDates}
 }
 
 export default venderRepositoryInt

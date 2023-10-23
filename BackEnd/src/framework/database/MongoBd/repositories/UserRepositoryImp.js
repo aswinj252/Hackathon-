@@ -21,7 +21,10 @@ import User from "../Models/User.js"
             quantity:details.getQuantity(),
             vender:details.getVender(),
             pdf_document:details.getPdfDocument(),
-            viewed:false
+            viewed:false,
+            url:"null",
+            scheduled:"false"
+
 
 
         })

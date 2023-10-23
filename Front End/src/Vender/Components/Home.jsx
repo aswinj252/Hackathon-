@@ -45,6 +45,7 @@ function Home() {
             <th className="px-5 py-3">Date</th>
             <th className="px-5 py-3">Vender</th>
             <th className="px-5 py-3">Status</th>
+            <th className="px-5 py-3">Details</th>
           </tr>
         </thead>
 

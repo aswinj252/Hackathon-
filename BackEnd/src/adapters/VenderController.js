@@ -5,6 +5,8 @@ import changePassword from "../application/use_case/Vender/changePassword.js";
 import login from "../application/use_case/Vender/Login.js";
 import GetOrders from "../application/use_case/Vender/GetOrders.js";
 import GetOrderByid from "../application/use_case/Vender/GetOrderbyId.js";
+import ScheduleShipping from "../application/use_case/Vender/ScheduleShipping.js";
+import Dates from "../application/use_case/Vender/Dates.js";
 
 const venderController = (venderRepositoryInt,venderRepositoryImp,authServiceInt,authServiceImp ) =>{
 const VenderRepository = venderRepositoryInt(venderRepositoryImp());
@@ -287,10 +289,33 @@ const authRepository = authServiceInt(authServiceImp());
             }
             
           }
+          const Schedule = async(req,res) =>{
+            try {
+            
+                const {date,date1,date2,id} = req.body
+              
+                const response = await ScheduleShipping(date,date1,date2,id,VenderRepository)
+                console.log(response,"res");
+                res.json({response})
+
+            } catch (error) {
+                
+            }
+          }
+          const GetDates = async(req,res) =>{
+            try {
+                
+                const id = req.params.id
+                const response = await Dates(id,VenderRepository)
+            } catch (error) {
+                
+            }
+
+          }
 
    
 
-return {verify,AddPassword,getData,Login,AddOrder,getOrders,GetOrderById}
+return {verify,AddPassword,getData,Login,AddOrder,getOrders,GetOrderById,Schedule,GetDates}
 
 }
 

@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
 
 const shippingScheduleSchema = new mongoose.Schema({
-  schedule_number: {type:Number,
-    required:true
-},
-  proposed_date: {
-    type:Date,
+  
+  date: {
+    type:String,
   required:true
-}
+},
+clicked: {
+    type:String,
+  required:true
+},
+orderId: {
+    type:String,
+  required:true
+},
+
+
+
 });
 
 

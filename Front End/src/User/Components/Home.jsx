@@ -2,6 +2,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState,useEffect } from "react";
 import axios from "../Utils/axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 
@@ -12,6 +15,7 @@ function Home() {
   const [venders,setVenders] = useState([])
   const [vender,setVender] = useState("")
   console.log(venders);
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -46,6 +50,21 @@ function Home() {
 
     await  axios.post('/addOrder',formData, { headers: {'Content-Type': 'multipart/form-data'}}).then((response)=>{
       console.log(response);
+      if (response.data.response.status === true) {
+
+        toast.success(response.data.response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+
+          navigate("/user/home/orders")
+      }
     })
   }
 

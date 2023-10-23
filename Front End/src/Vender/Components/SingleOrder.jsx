@@ -1,18 +1,72 @@
 import axios from '../Utils/axios';
 import { useEffect,useState } from 'react';
 import { useParams } from 'react-router-dom'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 
 function SingleOrder() {
+  const naviagte = useNavigate()
+   
     const { id } = useParams();
     const [data,setdate] =useState ({})
-    console.log(id);
+   const [date, setdatee] = useState(null);
+   const [date1, setdatee1] = useState(null);
+   const [date2, setdatee2] = useState(null);
+
+    console.log(data,"gsss");
+
+    const minSelectableDate = new Date();
+
+    const handleDateChange = (date) => {
+      console.log(date);
+      setdatee(date)
+     
+    }
+
+    const handleDateChange1 = (date) => {
+      console.log(date);
+      setdatee1(date)
+     
+    }
+    const handleDateChange2 = (date) => {
+      console.log(date);
+      setdatee2(date)
+     
+    }
+
+    useEffect(() =>{
+        axios.get(`/dates/${id}`) .then((response) =>{
+            console.log(response);
+        })
+    },[])
+
     useEffect(()=>{
       axios.get(`/order_id/${id}`).then((response) =>{
         console.log(response);
 setdate(response.data.response.data)
       })
     },[])
-  return (
+
+    const handleSubmit =() =>{
+
+  const body = JSON.stringify({date,date1,date2,id})
+  console.log(body);
+    console.log(body,body);
+        axios.post('/schedule',body, { headers: { "Content-Type": "application/json" }}).then((response)=>{
+        console.log(response,"res");
+        console.log("hai");
+        naviagte(`/vender/home/order_id/${id}`)
+      
+      })
+  
+
+   
+      // console.log(date,date1,date2,id,"details");
+
+
+    }
+   return (
     <>
    
    
@@ -48,56 +102,109 @@ setdate(response.data.response.data)
        Quantity {data.quantity}
           <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
             {" "}
-            Viewed {data.viewed}          </span>
+            Viewed {data.viewed}         </span>
         </div>
         <div className="">
         
-          <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-          
-          </span>
+          <button>View Pdf</button>
         </div>
       </div>
     </div>
   </div>
   <div className="max-w-screen-md mx-auto">
   <div className="rounded-lg border border-gray-300 bg-white py-2 px-3">
-    <nav className="flex flex-wrap gap-4">
-      <a
-        href="#"
-        className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
+
+  { data.scheduled === "false"  ?
+       <nav className="flex flex-wrap gap-4">
+
+
+    <div className="flex flex-wrap -mx-3 mb-6">
+    <div className="w-full px-3">
+      <label
+        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        htmlFor="grid-password"
       >
-        {" "}
-        Account{" "}
-      </a>
-      <a
-        href="#"
-        className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
+        Date Of Shippining
+      </label>
+     <DatePicker
+       
+        onChange={ handleDateChange}
+        dateFormat="MM/dd/yyyy"
+        minDate={minSelectableDate} 
+         selected={date}// Set the minimum selectable date
+         name="date"
+      />
+      {date && (
+        <p className='font-semibold	'>You selected: {date.toDateString()}</p>
+      )}
+  
+    </div>
+  </div>
+
+
+<div className="flex flex-wrap -mx-3 mb-6">
+    <div className="w-full px-3">
+      <label
+        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        htmlFor="grid-password"
       >
-        {" "}
-        Settings{" "}
-      </a>
-      <a
-        href="#"
-        className="whitespace-nowrap inline-flex rounded-lg bg-gray-200 py-2 px-3 text-sm font-medium text-gray-900 transition-all duration-200 ease-in-out"
+        Date Of Shippining
+      </label>
+     <DatePicker
+       
+        onChange={ handleDateChange1}
+        dateFormat="MM/dd/yyyy"
+        minDate={minSelectableDate} 
+         selected={date1}// Set the minimum selectable date
+         name="date"
+      />
+      {date1 && (
+        <p className='font-semibold	'>You selected: {date1.toDateString()}</p>
+      )}
+  
+    </div>
+  </div>
+
+
+  <div className="flex flex-wrap -mx-3 mb-6">
+    <div className="w-full px-3">
+      <label
+        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        htmlFor="grid-password"
       >
-        {" "}
-        Customs{" "}
-      </a>
-      <a
-        href="#"
-        className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
-      >
-        {" "}
-        Sales{" "}
-      </a>
-      <a
-        href="#"
-        className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
-      >
-        {" "}
-        Suppliers{" "}
-      </a>
-    </nav>
+        Date Of Shippining
+      </label>
+     <DatePicker
+       
+        onChange={ handleDateChange2}
+        dateFormat="MM/dd/yyyy"
+        minDate={minSelectableDate} 
+         selected={date2}// Set the minimum selectable date
+         name="date"
+      />
+      {date2 && (
+        <p className='font-semibold	'>You selected: {date2.toDateString()}</p>
+      )}
+  
+    </div>
+  </div>
+{data.scheduled === "false"  ? <button onClick={handleSubmit}>submit</button> :null}
+     
+    
+    </nav> : 
+    <div className="max-w-screen-md mx-auto">
+    <div className="rounded-lg border border-gray-300 bg-white py-2 px-3">
+      <nav className="flex flex-wrap gap-4">
+       <button           className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
+>dddd</button>
+        
+      </nav>
+    </div>
+  </div>
+  
+    }
+
+   
   </div>
 </div>
 

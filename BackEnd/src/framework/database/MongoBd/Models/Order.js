@@ -28,7 +28,15 @@ const orderSchema = new mongoose.Schema({
  viewed:{
     type:String,
     required:true
- }
+ },
+ scheduled:{
+    type:String,
+    required:true
+ },
+ url:{
+    type:String,
+    required:true
+ },
 });
 
 const Order = mongoose.model("Order", orderSchema);

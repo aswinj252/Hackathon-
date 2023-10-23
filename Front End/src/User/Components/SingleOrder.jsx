@@ -53,9 +53,7 @@ setdate(response.data.response.data)
         </div>
         <div className="">
         
-          <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-          
-          </span>
+          <button>View Pdf</button>
         </div>
       </div>
     </div>

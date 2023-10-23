@@ -1,7 +1,10 @@
-const ShippingEntity = (scheduleNumber, proposedDate) => {
+const ShippingEntity = (date,date1,date2,orderId) => {
     return {
-        getScheduleNumber: () => scheduleNumber,
-        getProposedDate: () => proposedDate,
+       
+        getProposedDate: () => date,
+        getProposedDate1: () => date1,
+        getProposedDate2: () => date2,
+        getOrderId: () => orderId
     }
 }
 
