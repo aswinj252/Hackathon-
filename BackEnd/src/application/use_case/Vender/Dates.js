@@ -1,8 +1,18 @@
 
-
-const Dates = async ( id,repository) =>{
-    const dates = await repository.GetDates(id)
-    console.log(dates);
-
-}
-export default Dates
+const Dates = async (id, repository) => {
+    const dates = await repository.GetDates(id);
+    const formattedDates = dates.map(dateObject => {
+      const isoDate = new Date(dateObject.date);
+      // Format the date as "YYYY-MM-DD" or any other desired format
+      const formattedDate = isoDate.toLocaleDateString(); // Change the format as needed
+      dateObject.date = formattedDate;
+      return dateObject;
+    });
+  
+    console.log(formattedDates);
+  
+    return { dates: formattedDates };
+  };
+  
+  export default Dates;
+  

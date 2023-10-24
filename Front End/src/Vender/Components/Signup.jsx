@@ -1,9 +1,29 @@
 
+
 import { useFormik } from "formik"
 import { signupSchema } from "../Schemas/index,";
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "../Utils/axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 
 function Signup() {
+  const navigate = useNavigate()
+  const [email ,setEmail] = useState("")
+
+const {id} = useParams()
+  useEffect(() =>{
+axios.get(`/getData/${id}`).then((response) =>{
+  
+  setEmail(response.data.response)
+
+})
+  },[])
+
+
   const initialValues ={
     password:""
   }
@@ -13,7 +33,26 @@ useFormik({
   initialValues:initialValues,
   validationSchema:signupSchema,
   onSubmit:(values) =>{
+    values.email = email
     console.log(values,"values");
+    axios.post("/add_password",values,{ headers: { "Content-Type": "application/json" }}).then((response)=>{
+      console.log(response);
+      if (response.data.response.Added) {
+
+           toast.success(response.data.response.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+
+            navigate("/vender/login")
+      }
+    })
 
   }
 })
@@ -101,7 +140,7 @@ useFormik({
         </div>
         {/* /Logo */}
         <h4 className="mb-2 font-medium text-gray-700 xl:text-xl">
-          Welcome to futurism!
+          Welcome {email}
         </h4>
         <p className="mb-6 text-gray-500">
           Please Enter your password

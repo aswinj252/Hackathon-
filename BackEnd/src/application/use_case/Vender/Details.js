@@ -1,6 +1,6 @@
-const Getdetails = async (repository) =>{
+const Getdetails = async (id,repository) =>{
 
-const data = await repository.getData()
+const data = await repository.getData(id)
 console.log(data);
 
     

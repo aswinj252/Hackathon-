@@ -1,26 +1,9 @@
-import config from "../../../config/config.js"
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
 import OrderEntity from "../../../entities/OrderEntity.js";
 
-const addOrder = async(productName,quantity,date,vender,document,DBRrepository) =>{
+const addOrder = async(productName,quantity,date,vender,document,DBRrepository,S3Repositry) =>{
 
-
- const S3 = new S3Client({
-    credentials: {
-      accessKeyId: config.accessKey,
-      secretAccessKey: config.secret,
-    },
-    region: config.region,
-  });
-  const params = {
-    Bucket: config.Bucketname,
-    Key: document.originalname,
-    Body: document.buffer,
-    contentType: document.mimetype,
-  };
-
-  const command = new PutObjectCommand(params);
-  await S3.send(command);
+    const s3_Add = await S3Repositry.AddData(document) 
 
 
 

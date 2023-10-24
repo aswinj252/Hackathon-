@@ -3,7 +3,7 @@ import Login from "../Vender/Components/Login"
 import Sighup from "../Vender/Components/Signup"
 import Home from "../Vender/Components/Home"
 import HomePage from "../Vender/Pages/HomePage"
-import View from "../Vender/Components/View"
+
 import SingleOrder from "../Vender/Components/SingleOrder"
 
 function VenderRoute() {
@@ -16,7 +16,7 @@ function VenderRoute() {
 
     <Route index element ={<Home/>}/>
     <Route path="order_id/:id" element ={<SingleOrder/>} />
-    <Route path="order_id/:id" />
+   
       </Route>
  
   </Routes>

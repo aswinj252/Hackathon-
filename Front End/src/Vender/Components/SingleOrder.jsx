@@ -4,8 +4,11 @@ import { useParams } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
+import { Document, Page } from 'react-pdf';
+
 
 function SingleOrder() {
+    
   const naviagte = useNavigate()
    
     const { id } = useParams();
@@ -13,6 +16,14 @@ function SingleOrder() {
    const [date, setdatee] = useState(null);
    const [date1, setdatee1] = useState(null);
    const [date2, setdatee2] = useState(null);
+   const [shipping,setShipping] = useState([])
+   const [numPages, setNumPages] = useState(null);
+   const [pageNumber, setPageNumber] = useState(1);
+   const url = data.url
+
+   function onDocumentLoadSuccess({ numPages }) {
+     setNumPages(numPages);
+   }
 
     console.log(data,"gsss");
 
@@ -23,7 +34,10 @@ function SingleOrder() {
       setdatee(date)
      
     }
-
+const docs = [
+        { uri: data.url }, // Remote file
+       
+      ];
     const handleDateChange1 = (date) => {
       console.log(date);
       setdatee1(date)
@@ -37,7 +51,8 @@ function SingleOrder() {
 
     useEffect(() =>{
         axios.get(`/dates/${id}`) .then((response) =>{
-            console.log(response);
+            console.log(response,"dates");
+            setShipping(response.data.response.dates)
         })
     },[])
 
@@ -106,7 +121,19 @@ setdate(response.data.response.data)
         </div>
         <div className="">
         
-          <button>View Pdf</button>
+        <div>
+      <button onClick={() => window.open(url, '_blank')}>View Pdf </button>
+      <div>
+        <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+         
+        </Document>
+      </div>
+    </div>
+
+
+          
+     
+        
         </div>
       </div>
     </div>
@@ -192,17 +219,28 @@ setdate(response.data.response.data)
      
     
     </nav> : 
+
+
     <div className="max-w-screen-md mx-auto">
     <div className="rounded-lg border border-gray-300 bg-white py-2 px-3">
-      <nav className="flex flex-wrap gap-4">
-       <button           className="whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900"
->dddd</button>
-        
-      </nav>
+
+      
+    {shipping.map((obj, index) => (
+  <nav key={index} className="flex flex-wrap gap-4">
+    <button
+      className={`whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-medium transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 ${
+        obj.clicked === "true" ? 'bg-yellow-400 text-white' : 'bg-gray-200 text-gray-600'
+      }`}
+    >
+      {obj.date}
+    </button>
+  </nav>
+))}
+
     </div>
   </div>
   
-    }
+     }
 
    
   </div>

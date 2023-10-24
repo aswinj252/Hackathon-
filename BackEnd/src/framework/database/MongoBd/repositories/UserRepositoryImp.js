@@ -1,4 +1,5 @@
 import Order from "../Models/Order.js"
+import Shipping from "../Models/Shipping.js"
 import User from "../Models/User.js"
 
  const UserRepositoryImp = () =>{
@@ -33,8 +34,11 @@ import User from "../Models/User.js"
 
     const Getorders = () => Order.find()
     const getById = (id) => Order.findOne({_id:id})
+    const dates = (id) => Shipping.find({orderId:id})
+    const change =(id)=> Shipping.updateMany({orderId:id},{$set:{clicked:"false"}})
+    const handleClick = (selectedid,id) => Shipping.updateOne({_id:selectedid},{$set:{clicked:"true"}})
 
-    return {userExist,Create,CreateOrder,Getorders,getById}
+    return {userExist,Create,CreateOrder,Getorders,getById,dates,handleClick,change}
 
  }
  export default UserRepositoryImp

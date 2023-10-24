@@ -13,7 +13,7 @@ function Sidebar() {
           <Link to={"/vender/home"}  className="ml-3 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" >Dashboard</Link>
          
         </li>
-        <li>
+        {/* <li>
         <Link to={"/vender/home/orders"}  className="ml-3 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" >Orders</Link>
 
       
@@ -25,7 +25,7 @@ function Sidebar() {
         <li>
         <Link to={"/vender/home/addVenders"}  className="ml-3 flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" >Log Out</Link>
 
-        </li>
+        </li> */}
        
       </ul>
     </div>

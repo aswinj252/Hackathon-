@@ -22,6 +22,8 @@ const UserRouter = (express) =>{
     router.route("/getVenders").get(controller.getVenders)
     router.route("/orders").get(controller.getOrders)
     router.route("/order_id/:id").get(controller.GetOrderById)
+    router.route("/scheduled_date/:id") .get(controller.GetDates)
+    router.route("/clicked").patch(controller.Clicked)
 
     return router
 

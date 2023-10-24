@@ -8,10 +8,11 @@ import GetOrderByid from "../application/use_case/Vender/GetOrderbyId.js";
 import ScheduleShipping from "../application/use_case/Vender/ScheduleShipping.js";
 import Dates from "../application/use_case/Vender/Dates.js";
 
-const venderController = (venderRepositoryInt,venderRepositoryImp,authServiceInt,authServiceImp ) =>{
+const venderController = (venderRepositoryInt,venderRepositoryImp,authServiceInt,authServiceImp,S3ServiceInt,S3ServiceImp ) =>{
 const VenderRepository = venderRepositoryInt(venderRepositoryImp());
 const authRepository = authServiceInt(authServiceImp());
-
+const S3Repository  =S3ServiceInt(S3ServiceImp())
+ 
 
     const verify = async(req,res) =>{
         try {
@@ -245,7 +246,7 @@ const authRepository = authServiceInt(authServiceImp());
             try {
                 const id = req.params.id
 
-                const response =await Getdetails(VenderRepository)
+                const response =await Getdetails(id,VenderRepository)
                 console.log(response);
                 res.json({response})
                 
@@ -264,10 +265,7 @@ const authRepository = authServiceInt(authServiceImp());
       res.json({response})
       
         } 
-        const AddOrder = async(req,res) =>{
-            console.log(req.body);
-            console.log(req.files);
-        }
+       
         const getOrders =async (req,res) =>{
             try {
               
@@ -282,7 +280,7 @@ const authRepository = authServiceInt(authServiceImp());
             try {
               const id = req.params.id
               console.log(id);
-            const response = await GetOrderByid(id,VenderRepository)
+            const response = await GetOrderByid(id,VenderRepository,S3Repository)
             res.json({response})
             } catch (error) {
               console.log(error);
@@ -307,6 +305,7 @@ const authRepository = authServiceInt(authServiceImp());
                 
                 const id = req.params.id
                 const response = await Dates(id,VenderRepository)
+                res.json({response})
             } catch (error) {
                 
             }
@@ -315,7 +314,7 @@ const authRepository = authServiceInt(authServiceImp());
 
    
 
-return {verify,AddPassword,getData,Login,AddOrder,getOrders,GetOrderById,Schedule,GetDates}
+return {verify,AddPassword,getData,Login,getOrders,GetOrderById,Schedule,GetDates}
 
 }
 

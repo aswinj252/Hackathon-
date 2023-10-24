@@ -1,8 +1,12 @@
 
 import { useFormik } from "formik"
 import { loginSchema } from "../Schemas/index,";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+import axios from "../Utils/axios";
 function Login() {
-
+const navigate = useNavigate()
 
   const initialValues ={
     email:"",
@@ -14,6 +18,54 @@ useFormik({
   validationSchema:loginSchema,
   onSubmit:(values) =>{
     console.log(values,"values");
+    axios.post('/login',values,{ headers: { "Content-Type": "application/json" },withCredentials: true }).then((response) =>{
+      console.log(response);
+      if(response.data.response.Login &&response.data.response.status  === true)
+      {
+        console.log("Login success");
+
+        toast.success(response.data.response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        
+          navigate("/vender/home")
+      }
+      else if( response.data.response.Login === false && response.data.response.status ===true)
+{
+  console.log("incorrect password");
+  toast.warn(response.data.response.message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    })
+}
+else{
+  console.log("email not registeres");
+  toast.error(response.data.response.message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+}
+
+    })
 
   }
 })

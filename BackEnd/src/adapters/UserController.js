@@ -5,6 +5,8 @@ import GetVenders from "../application/use_case/User/GetVenders.js";
 import addOrder from "../application/use_case/User/AddOrder.js";
 import GetOrders from "../application/use_case/User/GetOrders.js";
 import GetOrderByid from "../application/use_case/User/GetOrderByid.js";
+import ScheduledDates from "../application/use_case/User/ScheduledDates.js";
+import ChangeClicked from "../application/use_case/User/ChangeClicked.js";
 
 const UserController = (
   UserRepositoryInt,
@@ -22,7 +24,8 @@ const UserController = (
   const authserviceRepository = authServiceInt(authServiceImp());
   const mailSeviceRepository = mailServiceInt(mailServiceImp());
   const venderDb = venderRepositoryInt(venderRepositoryImp());
-  
+  const S3Repositry = S3ServiceInt(S3ServiceImp())
+   
 
   const CreateUser = async (req, res) => {
     try {
@@ -67,7 +70,7 @@ const UserController = (
    try {
      const {productName,quantity,date,vender} = req.body
     const document = req.file
-     const response = await addOrder(productName,quantity,date,vender,document,DBRrepository)
+     const response = await addOrder(productName,quantity,date,vender,document,DBRrepository,S3Repositry)
      console.log(response);
      res.json({response})
    } catch (error) {
@@ -109,8 +112,30 @@ const GetOrderById = async( req,res) =>{
   }
   
 }
+const GetDates = async(req,res) =>{
+  try {
+    const id = req.params.id
+    const response = await ScheduledDates(id,DBRrepository)
+    res.json({response})
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 
+const Clicked = async(req,res) =>{
+  try {
+    console.log(req.body);
+    const {selectedid,id} = req.body
+    const response = await ChangeClicked(selectedid,id,DBRrepository)
+    res.json({response})
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 
-  return { CreateUser, Login,AddVender,AddOrder,getVenders ,getOrders,GetOrderById};
+  return { CreateUser, Login,AddVender,AddOrder,getVenders ,getOrders,GetOrderById,Clicked,GetDates};
 };
 export default UserController;
